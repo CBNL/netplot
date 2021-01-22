@@ -18,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
@@ -408,9 +409,10 @@ public class PlotFrame extends JFrame implements ActionListener
    * @brief Capture all plots to a png file.
    */
   private void captureFrame() {
-      
-      try {
-    	  int retVal = saveImageJFC.showSaveDialog(null);
+    saveImageJFC.setFileFilter(new FileNameExtensionFilter("GIF / PNG Image Files", "gif", "png"));
+    int retVal = saveImageJFC.showSaveDialog(null);
+
+    try {
 		  int width  = chartPanel.getWidth();
 		  int height = chartPanel.getHeight();
 		  
@@ -436,10 +438,9 @@ public class PlotFrame extends JFrame implements ActionListener
 		          }
     		  }
     	  }
-		  else {
+  		  else {
         	  JOptionPane.showMessageDialog(this, "Plot window to small to save as an image.", "Error", JOptionPane.ERROR_MESSAGE);			  
-		  }
-           
+	  	  }
       } catch (IOException e) {
           e.printStackTrace();
       }
