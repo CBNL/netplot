@@ -28,7 +28,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Container;
 import java.awt.image.BufferedImage;
+
 import java.io.IOException;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 
@@ -400,50 +402,52 @@ public class PlotFrame extends JFrame implements ActionListener
   public void actionPerformed(ActionEvent e) {
 
 	  if( e.getSource() == savePlotsMenuItem ) {
-		  captureFrame();
+		  saveImage();
 	  }
 	  
   }
   
-  /**
-   * @brief Capture all plots to a png file.
-   */
-  private void captureFrame() {
+  private void saveImage() {
     saveImageJFC.setFileFilter(new FileNameExtensionFilter("GIF / PNG Image Files", "gif", "png"));
     int retVal = saveImageJFC.showSaveDialog(null);
 
+    if(retVal == JFileChooser.APPROVE_OPTION) {
+      String filename = saveImageJFC.getSelectedFile().getAbsolutePath();
+      captureFrame(filename);
+    }
+  }
+
+  /**
+   * @brief Capture all plots to a gif or png file.
+   */
+  private void captureFrame(String filename) {
     try {
 		  int width  = chartPanel.getWidth();
 		  int height = chartPanel.getHeight();
 		  
 		  if( width > 0 && height > 0 ) {
-			  
-			  if(retVal==JFileChooser.APPROVE_OPTION){
-		          BufferedImage im = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		          chartPanel.paint(im.getGraphics());
-		          String filename = saveImageJFC.getSelectedFile().getAbsolutePath();
+        BufferedImage im = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        chartPanel.paint(im.getGraphics());
 		          
-		          String fileSuffix = "";
-		          if( filename.toLowerCase().endsWith(".gif") ) {
-		        	  fileSuffix="GIF";
-		          } else if( filename.toLowerCase().endsWith(".png") ) {
-		        	  fileSuffix="PNG";
-		          }
+        String fileSuffix = "";
+        if( filename.toLowerCase().endsWith(".gif") ) {
+       	  fileSuffix="GIF";
+        } else if( filename.toLowerCase().endsWith(".png") ) {
+       	  fileSuffix="PNG";
+        }
 		          
-		          if( fileSuffix.length() > 0 ) {
-		        	  ImageIO.write(im, fileSuffix, saveImageJFC.getSelectedFile());
-		          }
-		          else {
-		        	  JOptionPane.showMessageDialog(this, "Invalid image file type. File extension must be gif or png.", "Error", JOptionPane.ERROR_MESSAGE);
-		          }
-    		  }
-    	  }
-  		  else {
-        	  JOptionPane.showMessageDialog(this, "Plot window to small to save as an image.", "Error", JOptionPane.ERROR_MESSAGE);			  
-	  	  }
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
+        if( fileSuffix.length() > 0 ) {
+       	  ImageIO.write(im, fileSuffix, new File(filename));
+        }
+        else {
+       	  JOptionPane.showMessageDialog(this, "Invalid image file type. File extension must be gif or png.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+   	  }
+ 		  else {
+     	  JOptionPane.showMessageDialog(this, "Plot window to small to save as an image.", "Error", JOptionPane.ERROR_MESSAGE);			  
+  	  }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
-
 }
