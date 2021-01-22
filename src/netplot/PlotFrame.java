@@ -414,7 +414,7 @@ public class PlotFrame extends JFrame implements ActionListener
 		  int width  = chartPanel.getWidth();
 		  int height = chartPanel.getHeight();
 		  
-		  if( height > 0  && height > 0 ) {
+		  if( width > 0 && height > 0 ) {
 			  
 			  if(retVal==JFileChooser.APPROVE_OPTION){
 		          BufferedImage im = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
