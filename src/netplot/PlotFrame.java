@@ -24,9 +24,6 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.Container;
 import java.awt.image.BufferedImage;
 
 import java.io.IOException;
@@ -420,7 +417,7 @@ public class PlotFrame extends JFrame implements ActionListener
   /**
    * @brief Capture all plots to a gif or png file.
    */
-  private void captureFrame(String filename) {
+  public void captureFrame(String filename) {
     try {
 		  int width  = chartPanel.getWidth();
 		  int height = chartPanel.getHeight();

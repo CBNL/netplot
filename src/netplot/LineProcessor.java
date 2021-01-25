@@ -164,6 +164,13 @@ public class LineProcessor
       int index = scanner.nextInt();
       plotPanelInterface.replot(index);
     }
+    else if ( line.startsWith(KeyWords.CAPTURE) )
+    {
+      Scanner scanner = new Scanner(line);
+      scanner.next();
+      String filename = scanner.next();
+      UO.captureImage(filename);
+    }
     //If we have some values to plot
     else if( plotPanelInterface != null )
     {

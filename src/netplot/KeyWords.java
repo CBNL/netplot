@@ -39,5 +39,5 @@ public class KeyWords
   public static final String TICK_COUNT             =   "tick_count";
   public static final String CLEAR                  =   "clear";
   public static final String REPLOT                 =   "replot";
-  
+  public static final String CAPTURE                =   "capture";
 }

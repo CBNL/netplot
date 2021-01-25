@@ -156,5 +156,9 @@ public class UO
   {
     UO.PlotFrame.SetEnableStatusMessages( enabled );
   }
-  
+
+  public synchronized static void captureImage(String filename)
+  {
+    UO.PlotFrame.captureFrame( filename );
+  }
 }
