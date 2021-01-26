@@ -134,7 +134,7 @@ import javax.imageio.ImageIO;
 public class PlotFrame extends JFrame implements ActionListener
 {
   static final long serialVersionUID=5;
-  public static final double NETPLOT_VERSION=2.5;
+  public static final String NETPLOT_VERSION="2.5-cc0.1";
   String helpLines[] = {
       "* All netplot commands are text strings which makes the client code simple to implement.",
       "* Java and python clients are supplied by default but you may implement you own clients",

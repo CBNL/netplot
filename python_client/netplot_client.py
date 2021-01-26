@@ -108,17 +108,10 @@ class NetPlot:
     rxData = self.sock.recv(256)
     rxData = rxData.decode("utf-8") #Convert bytes like object to string (Python 2->3)
     self.__debugPrint("rxData=%s" % (rxData))
-    netPlotServer=1
     elems=rxData.split('=')
     if rxData.find('netplot_version=') != 0 or len(elems) != 2:
-      netPlotServer=0
-    if netPlotServer:
-      try:
-        self.__serverVersion=float(elems[1])
-      except ValueError:
-        netPlotServer=0
-    if netPlotServer == 0:
       raise NetPlotError("%s:%d is not a netplot server. Received %s" % (self.__hostAddress, self.__port, rxData) )
+    self.__serverVersion=elems[1]
     self.sock.setblocking(0)
 
   def disconnect(self):
